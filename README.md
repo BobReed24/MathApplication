@@ -14,6 +14,6 @@
   gradle run
   ```
 - If the first run command does not work then try
-  ```ruby
+  ```bash
   /path/to/your/java17/bin/java -jar app/build/libs/app-all.jar
   ```
