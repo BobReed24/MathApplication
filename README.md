@@ -6,10 +6,10 @@
 
 ## How to use
  - To build run
-   ```java
+   ```ruby
    gradle clean build
    ```
 - To start run
-  ```java
+  ```ruby
   gradle run
   ```
