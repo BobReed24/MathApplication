@@ -6,10 +6,10 @@
 
 ## How to use
  - To build run
-   ```ruby
+   ```swift
    gradle clean build
    ```
 - To start run
-  ```ruby
+  ```swift
   gradle run
   ```
