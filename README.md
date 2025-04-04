@@ -6,10 +6,10 @@
 
 ## How to use
  - To build run
-   ```csharp
+   ```java
    gradle clean build
    ```
 - To start run
-  ```csharp
+  ```java
   gradle run
   ```
