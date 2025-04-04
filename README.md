@@ -6,10 +6,10 @@
 
 ## How to use
  - To build run
-   ```swift
+   ```csharp
    gradle clean build
    ```
 - To start run
-  ```swift
+  ```csharp
   gradle run
   ```
