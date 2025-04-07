@@ -11,7 +11,7 @@
    ```
 - To start run
   ```ruby
-  gradle run
+  source run
   ```
 - If the first run command does not work then try
   ```bash
