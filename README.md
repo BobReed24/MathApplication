@@ -17,4 +17,11 @@
  ```bash
  /path/to/your/java17/bin/java -jar app/build/libs/app-all.jar
  ```
-
+- If you get an error saying
+  ```
+  Error: Unable to access jarfile app/build/libs/app-alll.jar
+  ```
+  Then run
+  ```ruby
+  gradle shadowJar
+  ```
