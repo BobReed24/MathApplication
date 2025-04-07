@@ -15,9 +15,9 @@
   ```
 - If the first run command does not work then try
 
-_"<div style="color:purple; background:lightgrey">
+<div style="color:purple; background:lightgrey">
 <code>
   /path/to/your/java17/bin/java -jar app/build/libs/app-all.jar
 </code>
 </div>
-"_
+
