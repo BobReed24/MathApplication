@@ -703,7 +703,8 @@ public class MathApplication {
                     String equation = scanner.nextLine();
                     // Convert '=' to '==' for the solver
                     String eqForSolve = equation.replace("=", "==");
-                    IExpr solution = evaluator.evaluate("Solve(" + eqForSolve + ", " + var + ")");
+                    IExpr solutionExpr = evaluator.evaluate("Solve(" + eqForSolve + ", " + var + ")");
+                    String solution = solutionExpr.toString().replace("->", "=");
                     history.add(new String[]{equation, solution.toString()});
                     System.out.println("Solution for " + var + ": " + solution);
                     // Note: Numeric substitution is not handled in this basic translation.

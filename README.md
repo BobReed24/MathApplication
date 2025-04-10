@@ -6,12 +6,12 @@
 
 ## How to use
  - To build run
-   ```ruby
-   gradle clean build
+   ```bash
+    ./gradlew clean build
    ```
 - To start run
-  ```ruby
-  source run
+  ```bash
+    ./gradlewrun
   ```
 - If the first run command does not work then try
   ```bash
@@ -22,6 +22,6 @@
   Error: Unable to access jarfile app/build/libs/app-all.jar
   ```
   Then run
-  ```ruby
-  gradle shadowJar
+  ```bash
+  ./gradlew shadowJar
   ```
