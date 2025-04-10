@@ -11,17 +11,10 @@
    ```
 - To start run
   ```bash
-    ./gradlewrun
+    ./gradlew run
   ```
 - If the first run command does not work then try
   ```bash
   /path/to/your/java17/bin/java -jar app/build/libs/app-all.jar
   ```
-- If you get an error saying
-  ```
-  Error: Unable to access jarfile app/build/libs/app-all.jar
-  ```
-  Then run
-  ```bash
-  ./gradlew shadowJar
-  ```
+
