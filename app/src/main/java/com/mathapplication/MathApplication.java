@@ -18,7 +18,7 @@ import org.matheclipse.core.interfaces.IExpr;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
+@SuppressWarnings("all")
 public class MathApplication {
 
     private static final Logger logger = LogManager.getLogger(MathApplication.class);

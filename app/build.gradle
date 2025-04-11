@@ -14,6 +14,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-nop:2.0.13'
     implementation 'org.apache.logging.log4j:log4j-api:2.24.3'
     implementation 'com.google.guava:guava:32.1.3-jre' 
+    implementation 'org.antlr:antlr4-runtime:4.12.0'
 }
 
 java {
@@ -32,11 +33,11 @@ shadowJar {
 
 application {
     mainClass = 'com.mathapplication.MathApplication'
-        applicationDefaultJvmArgs = [
+    applicationDefaultJvmArgs = [
         "-Dnashorn.args=--no-deprecation-warning",
         "-Djava.util.logging.ConsoleHandler.level=OFF",
         "-Dorg.slf4j.simpleLogger.defaultLogLevel=off"
-        ]
+    ]
 }
 
 run {
@@ -44,7 +45,7 @@ run {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.compilerArgs += ["-Xlint:none", "-nowarn"]
+    options.compilerArgs.add("-Xlint:none")
 }
 
 tasks.withType(JavaExec).configureEach {
@@ -68,6 +69,8 @@ jar {
     }
 }
 
-
-
 mainClassName = 'com.mathapplication.MathApplication'
+
+tasks.withType(Javadoc).configureEach {
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
