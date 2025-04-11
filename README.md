@@ -1,7 +1,7 @@
 # MathApplication
 
 ## Requirements
- - Java Development Kit (JDK) 17 (61.0) or higher
+ - Java Development Kit (JDK) 11 (55.0) or higher
  - Gradle 8.12.1 (recommended version)
 
 ## How to use

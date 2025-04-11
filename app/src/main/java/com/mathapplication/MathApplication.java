@@ -189,20 +189,27 @@ public class MathApplication {
 
     // ----------------- Simple Math -----------------
     public static void simplemath() {
-        System.out.println("Evaluated Math Calculator");
+        System.out.println("Evaluated Math Calculator (type 'exit' to return to menu)");
         Scanner scanner = new Scanner(System.in);
-        try {
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
+    
+        while (true) {
             System.out.print(">: ");
             String input = scanner.nextLine();
-            ScriptEngineManager mgr = new ScriptEngineManager();
-            ScriptEngine engine = mgr.getEngineByName("JavaScript");
-            Object res = engine.eval(input);
-            System.out.println(res);
-        } catch (Exception e) {
-            System.out.println("Err: " + e.getMessage());
-            scanner.close();
+    
+            if (input.equalsIgnoreCase("exit")) {
+                break;
+            }
+    
+            try {
+                Object res = engine.eval(input);
+                System.out.println(res);
+            } catch (Exception e) {
+                System.out.println("Err: " + e.getMessage());
+            }
         }
     }
+    
 
     // ----------------- Area of Shapes -----------------
     public static void area_of_shapes() {
@@ -241,8 +248,7 @@ public class MathApplication {
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -285,8 +291,7 @@ public class MathApplication {
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -329,8 +334,7 @@ public class MathApplication {
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -371,8 +375,7 @@ public class MathApplication {
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -394,8 +397,7 @@ public class MathApplication {
                 System.out.println("Hypotenuse (c) = " + c);
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -432,8 +434,7 @@ public class MathApplication {
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -458,8 +459,7 @@ public class MathApplication {
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -484,8 +484,7 @@ public class MathApplication {
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -509,8 +508,7 @@ public class MathApplication {
                 System.out.println("Distance between points: " + distance);
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -535,8 +533,7 @@ public class MathApplication {
                 System.out.println("Midpoint: (" + midX + ", " + midY + ")");
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -560,8 +557,7 @@ public class MathApplication {
                 System.out.println("Slope: " + slope);
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
-                scanner.close();
-            }
+                            }
         }
     }
 
@@ -876,8 +872,7 @@ public class MathApplication {
                 break;
             } else {
                 System.out.println("Invalid choice, please try again.");
-                scanner.close();
-            }
+                            }
         }
     }
 

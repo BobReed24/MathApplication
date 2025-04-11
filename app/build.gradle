@@ -11,19 +11,18 @@ dependencies {
     implementation 'org.matheclipse:matheclipse-core:3.0.0'
     implementation 'org.matheclipse:matheclipse-parser:3.0.0'
     implementation 'org.apache.logging.log4j:log4j-core:2.24.3' 
+    implementation 'org.slf4j:slf4j-nop:2.0.13'
     implementation 'org.apache.logging.log4j:log4j-api:2.24.3'
-    testImplementation 'junit:junit:4.12' 
     implementation 'com.google.guava:guava:32.1.3-jre' 
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17) 
+        languageVersion = JavaLanguageVersion.of(11) 
     }
 }
 
 shadowJar {
-    //archiveClassifier.set('all')
     manifest {
         attributes(
             'Main-Class': 'com.mathapplication.MathApplication'
@@ -33,10 +32,31 @@ shadowJar {
 
 application {
     mainClass = 'com.mathapplication.MathApplication'
+        applicationDefaultJvmArgs = [
+        "-Dnashorn.args=--no-deprecation-warning",
+        "-Djava.util.logging.ConsoleHandler.level=OFF",
+        "-Dorg.slf4j.simpleLogger.defaultLogLevel=off"
+        ]
 }
 
 run {
     standardInput = System.in
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += ["-Xlint:none", "-nowarn"]
+}
+
+tasks.withType(JavaExec).configureEach {
+    jvmArgs += ["-Dorg.slf4j.simpleLogger.defaultLogLevel=off"]
+}
+
+tasks.named("run") {
+    jvmArgs(
+        "-Dnashorn.args=--no-deprecation-warning",
+        "-Djava.util.logging.ConsoleHandler.level=OFF",
+        "-Dorg.slf4j.simpleLogger.defaultLogLevel=off"
+    )
 }
 
 jar {
