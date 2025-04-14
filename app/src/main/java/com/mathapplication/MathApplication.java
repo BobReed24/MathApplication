@@ -196,19 +196,21 @@ public class MathApplication {
         while (true) {
             System.out.print(">: ");
             String input = scanner.nextLine();
-    
             if (input.equalsIgnoreCase("exit")) {
                 break;
             }
+
+            String parsedInput = input.replaceAll("(\\d+(?:\\.\\d+)?)\\s*\\^\\s*(\\d+(?:\\.\\d+)?)", "Math.pow($1, $2)");
     
             try {
-                Object res = engine.eval(input);
+                Object res = engine.eval(parsedInput);
                 System.out.println(res);
             } catch (Exception e) {
                 System.out.println("Err: " + e.getMessage());
             }
         }
     }
+    
     
 
     // ----------------- Area of Shapes -----------------
