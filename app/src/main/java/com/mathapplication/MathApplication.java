@@ -24,162 +24,125 @@ public class MathApplication {
     private static final Logger logger = LogManager.getLogger(MathApplication.class);
 
     // ----------------- Windowed Calculator -----------------
-    public static void windowed_calculator() {
-        // Using Swing to mimic tkinter window
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+
+        public static void windowed_calculator() {
+            SwingUtilities.invokeLater(() -> {
                 JFrame root = new JFrame("TI-84 Plus Calculator");
                 root.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                TI84Calculator calculator = new TI84Calculator(root);
-                root.setSize(400, 500);
+                new TI84Calculator(root);
+                root.setSize(400, 600);
                 root.setVisible(true);
-            }
-        });
-    }
-
-    // TI84Calculator class translated from Python tkinter-based class
-    public static class TI84Calculator {
-        private JFrame root;
-        private JTextField entry;
-        private List<ButtonInfo> buttons;
-
-        // Button information holder to preserve text and grid positions.
-        private static class ButtonInfo {
-            String text;
-            int row;
-            int column;
-            ButtonInfo(String text, int row, int column) {
-                this.text = text;
-                this.row = row;
-                this.column = column;
-            }
+            });
         }
-
-        public TI84Calculator(JFrame root) {
-            this.root = root;
-
-            // Create entry field with Arial 18, solid border
-            entry = new JTextField();
-            entry.setFont(new Font("Arial", Font.PLAIN, 18));
-            entry.setBorder(new LineBorder(Color.BLACK, 2));
-            // Use a panel with GridBagLayout for layout management.
-            JPanel panel = new JPanel(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.fill = GridBagConstraints.BOTH;
-            gbc.insets = new Insets(5, 5, 5, 5);
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            gbc.gridwidth = 4;
-            panel.add(entry, gbc);
-
-            // Define buttons list exactly as in Python
-            buttons = new ArrayList<>();
-            buttons.add(new ButtonInfo("7", 1, 0));
-            buttons.add(new ButtonInfo("8", 1, 1));
-            buttons.add(new ButtonInfo("9", 1, 2));
-            buttons.add(new ButtonInfo("/", 1, 3));
-            buttons.add(new ButtonInfo("4", 2, 0));
-            buttons.add(new ButtonInfo("5", 2, 1));
-            buttons.add(new ButtonInfo("6", 2, 2));
-            buttons.add(new ButtonInfo("*", 2, 3));
-            buttons.add(new ButtonInfo("1", 3, 0));
-            buttons.add(new ButtonInfo("2", 3, 1));
-            buttons.add(new ButtonInfo("3", 3, 2));
-            buttons.add(new ButtonInfo("-", 3, 3));
-            buttons.add(new ButtonInfo("0", 4, 0));
-            buttons.add(new ButtonInfo(".", 4, 1));
-            buttons.add(new ButtonInfo("+", 4, 2));
-            buttons.add(new ButtonInfo("=", 4, 3));
-            buttons.add(new ButtonInfo("sqrt", 5, 0));
-            buttons.add(new ButtonInfo("^", 5, 1));
-            buttons.add(new ButtonInfo("cos", 5, 2));
-            buttons.add(new ButtonInfo("sin", 5, 3));
-            buttons.add(new ButtonInfo("tan", 6, 0));
-            buttons.add(new ButtonInfo("log", 6, 1));
-            buttons.add(new ButtonInfo("exp", 6, 2));
-            buttons.add(new ButtonInfo("(", 6, 3));
-            buttons.add(new ButtonInfo(")", 7, 0));
-            buttons.add(new ButtonInfo("pi", 7, 1));
-            buttons.add(new ButtonInfo("e", 7, 2));
-            buttons.add(new ButtonInfo("C", 7, 3));
-
-            create_buttons(panel, gbc);
-            root.setContentPane(panel);
-        }
-
-        // create_buttons method: adds buttons to the panel using GridBagLayout.
-        public void create_buttons(JPanel panel, GridBagConstraints gbc) {
-            for (ButtonInfo bi : buttons) {
-                JButton btn;
-                if (bi.text.equals("=")) {
-                    btn = new JButton(bi.text);
-                    btn.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            calculate();
-                        }
-                    });
-                } else if (bi.text.equals("C")) {
-                    btn = new JButton(bi.text);
-                    btn.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            clear();
-                        }
-                    });
-                } else {
-                    btn = new JButton(bi.text);
-                    btn.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            button_click(bi.text);
-                        }
-                    });
+    
+        public static class TI84Calculator {
+            private JTextField entry;
+            private final List<ButtonInfo> buttons = new ArrayList<>();
+    
+            private static class ButtonInfo {
+                String text;
+                int row;
+                int column;
+    
+                ButtonInfo(String text, int row, int column) {
+                    this.text = text;
+                    this.row = row;
+                    this.column = column;
                 }
-                gbc.gridwidth = 1;
-                gbc.gridx = bi.column;
-                gbc.gridy = bi.row;
-                btn.setPreferredSize(new Dimension(80, 60));
-                panel.add(btn, gbc);
+            }
+    
+            public TI84Calculator(JFrame root) {
+                entry = new JTextField();
+                entry.setFont(new Font("Arial", Font.PLAIN, 18));
+                entry.setBorder(new LineBorder(Color.BLACK, 2));
+                entry.setEditable(false);
+    
+                JPanel panel = new JPanel(new GridBagLayout());
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.fill = GridBagConstraints.BOTH;
+                gbc.insets = new Insets(3, 3, 3, 3);
+    
+                gbc.gridx = 0;
+                gbc.gridy = 0;
+                gbc.gridwidth = 4;
+                panel.add(entry, gbc);
+    
+                initButtons();
+                addButtons(panel, gbc);
+    
+                root.setContentPane(panel);
+            }
+    
+            private void initButtons() {
+                String[][] layout = {
+                    {"7", "8", "9", "/"},
+                    {"4", "5", "6", "*"},
+                    {"1", "2", "3", "-"},
+                    {"0", ".", "+", "="},
+                    {"sqrt", "^", "cos", "sin"},
+                    {"tan", "log", "exp", "("},
+                    {")", "pi", "e", "C"}
+                };
+    
+                for (int r = 0; r < layout.length; r++) {
+                    for (int c = 0; c < layout[r].length; c++) {
+                        buttons.add(new ButtonInfo(layout[r][c], r + 1, c));
+                    }
+                }
+            }
+    
+            private void addButtons(JPanel panel, GridBagConstraints gbc) {
+                for (ButtonInfo bi : buttons) {
+                    JButton btn = new JButton(bi.text);
+                    btn.setFont(new Font("Arial", Font.BOLD, 16));
+                    btn.setPreferredSize(new Dimension(80, 50));
+    
+                    if (bi.text.equals("=")) {
+                        btn.addActionListener(e -> calculate());
+                    } else if (bi.text.equals("C")) {
+                        btn.addActionListener(e -> entry.setText(""));
+                    } else {
+                        btn.addActionListener(e -> button_click(bi.text));
+                    }
+    
+                    gbc.gridx = bi.column;
+                    gbc.gridy = bi.row;
+                    gbc.gridwidth = 1;
+                    panel.add(btn, gbc);
+                }
+            }
+    
+            private void button_click(String text) {
+                String current = entry.getText();
+                if (text.equals("pi")) {
+                    entry.setText(current + Math.PI);
+                } else if (text.equals("e")) {
+                    entry.setText(current + Math.E);
+                } else {
+                    entry.setText(current + text);
+                }
+            }
+    
+            private void calculate() {
+                try {
+                    String expression = entry.getText();
+                    // Replace math functions
+                    expression = expression.replaceAll("sqrt", "Math.sqrt");
+                    expression = expression.replaceAll("cos", "Math.cos");
+                    expression = expression.replaceAll("sin", "Math.sin");
+                    expression = expression.replaceAll("tan", "Math.tan");
+                    expression = expression.replaceAll("log", "Math.log");
+                    expression = expression.replaceAll("exp", "Math.exp");
+                    expression = expression.replaceAll("(\\d+)\\s*\\^\\s*(\\d+)", "Math.pow($1,$2)");
+    
+                    ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
+                    Object result = engine.eval(expression);
+                    entry.setText(result.toString());
+                } catch (Exception e) {
+                    entry.setText("Error");
+                }
             }
         }
-
-        // button_click: append the clicked button's text or math constant.
-        public void button_click(String text) {
-            String current = entry.getText();
-            if (text.equals("pi")) {
-                entry.setText(current + Double.toString(Math.PI));
-            } else if (text.equals("e")) {
-                entry.setText(current + Double.toString(Math.E));
-            } else {
-                entry.setText(current + text);
-            }
-        }
-
-        // clear: clear the entry field.
-        public void clear() {
-            entry.setText("");
-        }
-
-        // calculate: evaluate the expression from the entry field.
-        public void calculate() {
-            try {
-                String expression = entry.getText();
-                // Replace operations similar to the Python code.
-                expression = expression.replace("^", "**");
-                expression = expression.replace("sqrt", "Math.sqrt");
-                expression = expression.replace("cos", "Math.cos");
-                expression = expression.replace("sin", "Math.sin");
-                expression = expression.replace("tan", "Math.tan");
-                expression = expression.replace("log", "Math.log");
-                expression = expression.replace("exp", "Math.exp");
-                // Use JavaScript engine for evaluation.
-                ScriptEngineManager mgr = new ScriptEngineManager();
-                ScriptEngine engine = mgr.getEngineByName("JavaScript");
-                Object result = engine.eval(expression);
-                entry.setText(result.toString());
-            } catch (Exception e) {
-                entry.setText("Error");
-            }
-        }
-    }
 
     // ----------------- Round Result -----------------
     public static double round_result(double result, int decimal_places) {
