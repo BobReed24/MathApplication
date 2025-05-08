@@ -27,7 +27,7 @@ public class MathApplication {
 
         public static void windowed_calculator() {
             SwingUtilities.invokeLater(() -> {
-                JFrame root = new JFrame("TI-84 Plus Calculator");
+                JFrame root = new JFrame("Windowed Calculator");
                 root.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 new TI84Calculator(root);
                 root.setSize(400, 600);
