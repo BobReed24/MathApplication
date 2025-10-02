@@ -181,7 +181,7 @@ public class MathApplication {
         System.out.println("Area of Shapes");
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.print("Enter a shape (rectangle, triangle, circle) to calculate area (or 'exit' to quit): ");
+            System.out.print("Enter a shape (rectangle, triangle, circle, trapezoid) to calculate area (or 'exit' to quit): ");
             String shape = scanner.nextLine().toLowerCase();
             if (shape.equals("exit")) {
                 break;
@@ -208,6 +208,15 @@ public class MathApplication {
                     double r = Double.parseDouble(scanner.nextLine());
                     double area = Math.PI * Math.pow(r, 2);
                     System.out.println("Area of circle: " + area + " " + unit + "\u00B2");
+                } else if (shape.equals("trapezoid")) {
+                    System.out.print("Enter base 1: ");
+                    double b1 = Double.parseDouble(scanner.nextLine());
+                    System.out.print("Enter base 2: ");
+                    double b2 = Double.parseDouble(scanner.nextLine());
+                    System.out.print("Enter height: ");
+                    double h = Double.parseDouble(scanner.nextLine());
+                    double area = 0.5 * (b1 + b2) * h;
+                    System.out.println("Area of trapezoid: " + area + " " + unit + "\u00B2");
                 } else {
                     System.out.println("Invalid shape, please try again.");
                 }
