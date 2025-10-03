@@ -181,7 +181,7 @@ public class MathApplication {
         System.out.println("Area of Shapes");
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.print("Enter a shape (rectangle, triangle, circle, trapezoid) to calculate area (or 'exit' to quit): ");
+            System.out.print("Enter a shape\n-----------------\nrectangle\ntriangle\ncircle\ntrapezoid\nrhombus\nhexagon\noctagon\n-----------------\nto calculate area (or 'exit' to quit): ");
             String shape = scanner.nextLine().toLowerCase();
             if (shape.equals("exit")) {
                 break;
@@ -217,6 +217,23 @@ public class MathApplication {
                     double h = Double.parseDouble(scanner.nextLine());
                     double area = 0.5 * (b1 + b2) * h;
                     System.out.println("Area of trapezoid: " + area + " " + unit + "\u00B2");
+                } else if (shape.equals("rhombus")) {
+                    System.out.print("Enter diagonal 1: ");
+                    double p = Double.parseDouble(scanner.nextLine());
+                    System.out.print("Enter diagonal 2: ");
+                    double q = Double.parseDouble(scanner.nextLine());
+                    double area = 0.5 * (p * q);
+                    System.out.println("Area of rhombus: " + area + " " + unit + "\u00B2");
+                } else if (shape.equals("hexagon")) {
+                    System.out.print("Enter side length: ");
+                    double a = Double.parseDouble(scanner.nextLine());
+                    double area = 0.5 * (3 * Math.sqrt(3)) * Math.pow(a, 2);
+                    System.out.println("Area of hexagon: " + area + " " + unit + "\u00B2");
+                } else if (shape.equals("octagon")) {
+                    System.out.print("Enter side length: ");
+                    double a = Double.parseDouble(scanner.nextLine());
+                    double area = 2 * (1+Math.sqrt(2)) * Math.pow(a, 2);
+                    System.out.println("Side of octagon: " + area + " " + unit + "\u00B2");
                 } else {
                     System.out.println("Invalid shape, please try again.");
                 }
